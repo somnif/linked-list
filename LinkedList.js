@@ -1,7 +1,7 @@
 import Node from "./Node.js";
 
 export default class LinkedList {
-  constructor(array = []) {
+  constructor() {
     this.rootNode = null;
     this.tailNode = null;
     this.length = 0;
@@ -115,15 +115,22 @@ export default class LinkedList {
   }
 
   insertAt(value, index) {
-    const newNode = new Node(value);
-    const prevNode = this.at(index - 1);
-    const existingNode = prevNode.nextNode;
+    if (index > this.length) {
+      this.append(value);
+    } else {
+      const newNode = new Node(value);
+      const prevNode = this.at(index - 1);
+      const existingNode = prevNode.nextNode;
 
-    prevNode.nextNode = newNode;
-    newNode.nextNode = existingNode;
+      prevNode.nextNode = newNode;
+      newNode.nextNode = existingNode;
+    }
   }
 
   removeAt(index) {
+    if (index > this.length) {
+      return "No node found";
+    }
     const prevNode = this.at(index - 1);
     const existingNode = prevNode.nextNode;
     prevNode.nextNode = existingNode.nextNode;
